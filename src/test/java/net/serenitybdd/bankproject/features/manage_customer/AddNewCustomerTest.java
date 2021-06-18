@@ -26,7 +26,7 @@ import static org.hamcrest.core.Is.is;
 public class AddNewCustomerTest {
 
     private Actor manager = Actor.named("Manager");
-    String errorMessage = "Please fill in this field.";
+    String errorMessage = "Please fill out this field.";
 
     String successMessage = "Customer added successfully with customer id :";
 
