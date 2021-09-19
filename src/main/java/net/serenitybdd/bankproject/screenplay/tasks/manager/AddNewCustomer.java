@@ -1,5 +1,6 @@
 package net.serenitybdd.bankproject.screenplay.tasks.manager;
 
+import net.serenitybdd.bankproject.screenplay.model.CustomerInformation;
 import net.serenitybdd.bankproject.screenplay.user_interface.AddCustomer;
 import net.serenitybdd.bankproject.screenplay.user_interface.Manager;
 import net.serenitybdd.screenplay.ClickInteraction;
@@ -13,11 +14,11 @@ public class AddNewCustomer {
         return Task.where("Add new customer", Click.on(Manager.ADD_CUSTOMER_BUTTON));
     }
 
-    public static Performable called(String firstName, String lastName, String postCode) {
+    public static Performable called(CustomerInformation customer) {
         return Task.where("{0} add a new customer",
-                SendKeys.of(firstName).into(AddCustomer.FIRST_NAME_INPUT),
-                SendKeys.of(lastName).into(AddCustomer.LAST_NAME_INPUT),
-                SendKeys.of(postCode).into(AddCustomer.POST_CODE_INPUT),
+                SendKeys.of(customer.getFirstName()).into(AddCustomer.FIRST_NAME_INPUT),
+                SendKeys.of(customer.getLastName()).into(AddCustomer.LAST_NAME_INPUT),
+                SendKeys.of(customer.getPostCode()).into(AddCustomer.POST_CODE_INPUT),
                 Click.on(AddCustomer.SUBMIT_BTN));
     }
 }

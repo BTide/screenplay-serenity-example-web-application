@@ -17,8 +17,6 @@
         <serenity.cucumber.version>2.3.4</serenity.cucumber.version>
         <parallel.tests>4</parallel.tests>
         <encoding>UTF-8</encoding>
-        <serenity.test.root></serenity.test.root>
-        <tags></tags>
     </properties>
 
 
@@ -48,11 +46,7 @@
             <artifactId>serenity-ensure</artifactId>
             <version>${serenity.version}</version>
         </dependency>
-        <dependency>
-            <groupId>net.serenity-bdd</groupId>
-            <artifactId>serenity-cucumber6</artifactId>
-            <version>${serenity.cucumber.version}</version>
-        </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>

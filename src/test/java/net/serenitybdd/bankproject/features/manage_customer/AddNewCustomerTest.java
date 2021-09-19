@@ -1,10 +1,13 @@
 package net.serenitybdd.bankproject.features.manage_customer;
 
+import net.serenitybdd.bankproject.features.WebHook;
+import net.serenitybdd.bankproject.screenplay.model.CustomerInformation;
 import net.serenitybdd.bankproject.screenplay.questions.Customer.Alert;
 import net.serenitybdd.bankproject.screenplay.questions.Manager.AddCustomer.Message;
 import net.serenitybdd.bankproject.screenplay.tasks.Start;
 import net.serenitybdd.bankproject.screenplay.tasks.manager.AddNewCustomer;
 import net.serenitybdd.bankproject.screenplay.user_interface.AddCustomer;
+import net.serenitybdd.bankproject.screenplay.user_interface.Customer;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
@@ -23,20 +26,12 @@ import static org.hamcrest.core.Is.is;
 @WithTags({
         @WithTag("Screenplay pattern"),
 })
-public class AddNewCustomerTest {
+public class AddNewCustomerTest extends WebHook {
 
-    private Actor manager = Actor.named("Manager");
     String errorMessage = "Please fill out this field.";
-
     String successMessage = "Customer added successfully with customer id :";
 
-
-    @Managed
-    private WebDriver hisBrowser;
-
-    String firstName = "W33";
-    String lastName = "Haa";
-    String postCode = "123";
+    CustomerInformation customer = new CustomerInformation("B","Tide","123");
 
     @Before
     public void managerCanBrowseTheWebAndLogin() {
@@ -46,15 +41,11 @@ public class AddNewCustomerTest {
         givenThat(manager).attemptsTo(Start.LoginAsManager());
     }
 
-
-
     @Test
-    public void AddACustomer() {
-
-
+    public void should_be_able_to_add_a_new_customer() {
         when(manager).attemptsTo(
                 AddNewCustomer.from_ManagerPage(),
-                AddNewCustomer.called(firstName,lastName,postCode)
+                AddNewCustomer.called(customer)
         );
 
         then(manager).should(
@@ -66,12 +57,12 @@ public class AddNewCustomerTest {
     }
 
     @Test
-    public void AddACustomerWithoutFirstName() {
-        firstName = "";
+    public void should_validate_first_mane() {
+        customer.setFirstName("");
 
         when(manager).attemptsTo(
                 AddNewCustomer.from_ManagerPage(),
-                AddNewCustomer.called(firstName,lastName,postCode)
+                AddNewCustomer.called(customer)
         );
 
         then(manager).should(
@@ -81,12 +72,12 @@ public class AddNewCustomerTest {
     }
 
     @Test
-    public void AddACustomerWithoutLastName() {
-        lastName = "";
+    public void should_validate_last_name() {
+        customer.setLastName("");
 
         when(manager).attemptsTo(
                 AddNewCustomer.from_ManagerPage(),
-                AddNewCustomer.called(firstName,lastName,postCode)
+                AddNewCustomer.called(customer)
         );
 
         then(manager).should(
@@ -95,12 +86,12 @@ public class AddNewCustomerTest {
     }
 
     @Test
-    public void AddACustomerWithoutPostCode() {
-        postCode = "";
+    public void should_validate_post_code() {
+        customer.setPostCode("");
 
         when(manager).attemptsTo(
                 AddNewCustomer.from_ManagerPage(),
-                AddNewCustomer.called(firstName,lastName,postCode)
+                AddNewCustomer.called(customer)
         );
 
         then(manager).should(
